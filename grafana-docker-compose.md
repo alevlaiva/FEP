@@ -1,12 +1,5 @@
 # Grafana con Plugin Zabbix — Docker Compose
 
-## Estructura de carpetas
-
-```
-/opt/grafana/
-└── docker-compose.yml
-```
-
 ## docker-compose.yml
 
 ```yaml
@@ -22,23 +15,16 @@ services:
       - grafana-storage:/var/lib/grafana
     environment:
       - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-
 volumes:
   grafana-storage:
 ```
-
-> ⚠️ Las variables `GF_AUTH_*` desactivan el login. Úsalas solo en entornos de prueba.
-
 ---
 
 ## Comandos
 
 ### Levantar
 ```bash
-mkdir -p /opt/grafana && cd /opt/grafana
+mkdir -p /grafana && cd /grafana
 docker compose up -d
 ```
 
