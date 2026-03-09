@@ -1,10 +1,5 @@
 # Wazuh — Agente y SIEM
 
----
-
-## ¿Para qué sirve Wazuh?
-
-Wazuh es una plataforma **open source** de seguridad que combina EDR + SIEM en una sola solución. Permite monitorear, detectar y responder a amenazas en endpoints en tiempo real, centralizando todos los eventos en un solo panel.
 
 ---
 
@@ -26,9 +21,8 @@ Wazuh es una plataforma **open source** de seguridad que combina EDR + SIEM en u
 
 ## Wazuh Agent
 
-### ¿Para qué sirve el agente?
 
-El agente es el componente que se instala **directamente en el endpoint** (servidor, PC, VM). Es el encargado de recopilar toda la información de seguridad y enviarla al Manager.
+El agente es el componente que se instala **directamente en el endpoint** (servidor, PC, VM). Es el encargado de recopilar toda la información de seguridad y enviarla al Manager (SIEM).
 
 ### ¿Qué monitorea el agente?
 
@@ -40,26 +34,9 @@ El agente es el componente que se instala **directamente en el endpoint** (servi
 | **Red** | Registra conexiones de red entrantes y salientes |
 | **Vulnerabilidades** | Escanea CVEs en el SO y paquetes instalados |
 | **Rootkits** | Detecta rootkits y malware oculto |
-| **Compliance** | Verifica cumplimiento de normativas (PCI-DSS, HIPAA, GDPR) |
 | **Active Response** | Ejecuta acciones automáticas ante amenazas (bloquear IP, matar proceso) |
 
-### Instalación del agente
 
-```bash
-# Descargar agente (Debian/Ubuntu)
-curl -so wazuh-agent.deb https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.14.3-1_amd64.deb
-
-# Instalar apuntando al Manager
-WAZUH_MANAGER='<IP_DEL_MANAGER>' \
-WAZUH_AGENT_NAME='nombre-servidor' \
-dpkg -i ./wazuh-agent.deb
-
-# Habilitar e iniciar
-systemctl enable --now wazuh-agent
-
-# Verificar estado
-systemctl status wazuh-agent
-```
 
 ### Configuración del agente
 
@@ -100,19 +77,6 @@ El agente se configura en `/var/ossec/etc/ossec.conf`:
 
 ---
 
-## Wazuh como SIEM
-
-### ¿Para qué sirve el SIEM?
-
-El SIEM (Security Information and Event Management) centraliza, correlaciona y analiza todos los eventos de seguridad recibidos desde los agentes. Genera alertas, reportes y permite investigar incidentes.
-
-### Componentes del SIEM en Wazuh
-
-| Componente | Función |
-|---|---|
-| **Wazuh Manager** | Procesa eventos, aplica reglas y genera alertas |
-| **Wazuh Indexer** | Almacena y indexa todos los eventos (OpenSearch) |
-| **Wazuh Dashboard** | Visualización, búsqueda y gestión de alertas |
 
 ### ¿Qué hace el SIEM con los datos?
 
@@ -186,25 +150,3 @@ Wazuh puede recibir datos de fuentes externas además de sus agentes:
 
 ---
 
-## Comandos útiles
-
-```bash
-# Ver agentes conectados (en el Manager)
-/var/ossec/bin/agent_control -l
-
-# Ver alertas en tiempo real
-tail -f /var/ossec/logs/alerts/alerts.json
-
-# Reiniciar el Manager
-systemctl restart wazuh-manager
-
-# Reiniciar el agente
-systemctl restart wazuh-agent
-
-# Ver logs del Manager
-tail -f /var/ossec/logs/ossec.log
-```
-
----
-
-> 💡 **Tip:** Accede al Dashboard en `https://<IP>` con usuario `admin` para ver todos los agentes, alertas y eventos centralizados en tiempo real.
