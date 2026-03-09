@@ -149,4 +149,7 @@ Wazuh puede recibir datos de fuentes externas además de sus agentes:
 - **AWS / Azure / GCP** — Logs de nube
 
 ---
+## Documentación
+https://documentation.wazuh.com/current/installation-guide/wazuh-agent/index.html
+
 
